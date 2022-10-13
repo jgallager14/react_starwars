@@ -1,6 +1,6 @@
 export function IndexPage() {
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-full flex flex-col">
       <header className="py-8 flex items-center justify-around bg-gray-200 border-b-solid border-b-2 border-b-black">
         <h1 className="text-3xl">Star Wars Info Hub</h1>
       </header>
