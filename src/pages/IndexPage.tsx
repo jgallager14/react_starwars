@@ -1,3 +1,7 @@
+import { SidebarNavLink } from "../components/SidebarNav/SidebarNavLink";
+import { swapiResourceMetadata, SwapiResources } from "../utils/swapiHelpers";
+import { Outlet } from "react-router-dom";
+
 export function IndexPage() {
   return (
     <div className="h-full flex flex-col">
@@ -6,29 +10,53 @@ export function IndexPage() {
       </header>
       <div className="flex h-full">
         <nav className="h-full w-1/5 min-w-min flex flex-col bg-gray-500">
-          <a className="p-6 align-middle bg-gray-300 border-b-2 border-b-black border-b-solid text-xl">
-            People
-          </a>
-          <a className="p-6 align-middle bg-gray-300 border-b-2 border-b-black border-b-solid text-xl">
-            Films
-          </a>
-          <a className="p-6 align-middle bg-gray-300 border-b-2 border-b-black border-b-solid text-xl">
-            Spaceships
-          </a>
-          <a className="p-6 align-middle bg-gray-300 border-b-2 border-b-black border-b-solid text-xl">
-            Vehicles
-          </a>
-          <a className="p-6 align-middle bg-gray-300 border-b-2 border-b-black border-b-solid text-xl">
-            Species
-          </a>
-          <a className="p-6 align-middle bg-gray-300 border-b-2 border-b-black border-b-solid text-xl">
-            Planets
-          </a>
+          <SidebarNavLink
+            route={swapiResourceMetadata[SwapiResources.People].internalUrlPath}
+            displayText={
+              swapiResourceMetadata[SwapiResources.People].displayName
+            }
+          />
+          <SidebarNavLink
+            route={swapiResourceMetadata[SwapiResources.Films].internalUrlPath}
+            displayText={
+              swapiResourceMetadata[SwapiResources.Films].displayName
+            }
+          />
+          <SidebarNavLink
+            route={
+              swapiResourceMetadata[SwapiResources.Planets].internalUrlPath
+            }
+            displayText={
+              swapiResourceMetadata[SwapiResources.Planets].displayName
+            }
+          />
+          <SidebarNavLink
+            route={
+              swapiResourceMetadata[SwapiResources.Spaceships].internalUrlPath
+            }
+            displayText={
+              swapiResourceMetadata[SwapiResources.Spaceships].displayName
+            }
+          />
+          <SidebarNavLink
+            route={
+              swapiResourceMetadata[SwapiResources.Species].internalUrlPath
+            }
+            displayText={
+              swapiResourceMetadata[SwapiResources.Species].displayName
+            }
+          />
+          <SidebarNavLink
+            route={
+              swapiResourceMetadata[SwapiResources.Vehicles].internalUrlPath
+            }
+            displayText={
+              swapiResourceMetadata[SwapiResources.Vehicles].displayName
+            }
+          />
         </nav>
         <main className="w-4/5 flex items-center justify-center">
-          <p className="text-xl p-4">
-            Welcome, please select a resource to proceed!
-          </p>
+          <Outlet />
         </main>
       </div>
     </div>
