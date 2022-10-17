@@ -1,5 +1,6 @@
 import { SidebarNavLink } from "../components/SidebarNav/SidebarNavLink";
 import { swapiResourceMetadata, SwapiResources } from "../utils/swapiHelpers";
+import { Outlet } from "react-router-dom";
 
 export function IndexPage() {
   return (
@@ -10,46 +11,52 @@ export function IndexPage() {
       <div className="flex h-full">
         <nav className="h-full w-1/5 min-w-min flex flex-col bg-gray-500">
           <SidebarNavLink
-            urlPath=""
+            route={swapiResourceMetadata[SwapiResources.People].internalUrlPath}
             displayText={
               swapiResourceMetadata[SwapiResources.People].displayName
             }
           />
           <SidebarNavLink
-            urlPath=""
+            route={swapiResourceMetadata[SwapiResources.Films].internalUrlPath}
             displayText={
               swapiResourceMetadata[SwapiResources.Films].displayName
             }
           />
           <SidebarNavLink
-            urlPath=""
+            route={
+              swapiResourceMetadata[SwapiResources.Planets].internalUrlPath
+            }
             displayText={
               swapiResourceMetadata[SwapiResources.Planets].displayName
             }
           />
           <SidebarNavLink
-            urlPath=""
+            route={
+              swapiResourceMetadata[SwapiResources.Spaceships].internalUrlPath
+            }
             displayText={
               swapiResourceMetadata[SwapiResources.Spaceships].displayName
             }
           />
           <SidebarNavLink
-            urlPath=""
+            route={
+              swapiResourceMetadata[SwapiResources.Species].internalUrlPath
+            }
             displayText={
               swapiResourceMetadata[SwapiResources.Species].displayName
             }
           />
           <SidebarNavLink
-            urlPath=""
+            route={
+              swapiResourceMetadata[SwapiResources.Vehicles].internalUrlPath
+            }
             displayText={
               swapiResourceMetadata[SwapiResources.Vehicles].displayName
             }
           />
         </nav>
         <main className="w-4/5 flex items-center justify-center">
-          <p className="text-xl p-4">
-            Welcome, please select a resource to proceed!
-          </p>
+          <Outlet />
         </main>
       </div>
     </div>
