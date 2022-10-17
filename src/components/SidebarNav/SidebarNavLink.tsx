@@ -1,15 +1,23 @@
+import { NavLink } from "react-router-dom";
+
 interface SidebarNavLinkProps {
-  urlPath: string;
+  route: string;
   displayText: string;
 }
 
 export function SidebarNavLink(props: SidebarNavLinkProps): JSX.Element {
+  let activeStyle =
+    "p-6 align-middle bg-gray-500 border-b-2 border-b-black border-b-solid text-xl";
+
+  let defaultStyle =
+    "p-6 align-middle bg-gray-300 border-b-2 border-b-black border-b-solid text-xl";
+
   return (
-    <a
-      href={props.urlPath}
-      className="p-6 align-middle bg-gray-300 border-b-2 border-b-black border-b-solid text-xl"
+    <NavLink
+      to={props.route}
+      className={({ isActive }) => (isActive ? activeStyle : defaultStyle)}
     >
       {props.displayText}
-    </a>
+    </NavLink>
   );
 }
