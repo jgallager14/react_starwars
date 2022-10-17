@@ -6,10 +6,10 @@ interface SidebarNavLinkProps {
 }
 
 export function SidebarNavLink(props: SidebarNavLinkProps): JSX.Element {
-  let activeStyle =
+  const activeStyle =
     "p-6 align-middle bg-gray-500 border-b-2 border-b-black border-b-solid text-xl";
 
-  let defaultStyle =
+  const defaultStyle =
     "p-6 align-middle bg-gray-300 border-b-2 border-b-black border-b-solid text-xl";
 
   return (
