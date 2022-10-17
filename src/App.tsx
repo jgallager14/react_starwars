@@ -1,6 +1,10 @@
 import { IndexPage } from "./pages/IndexPage";
 import { Greeting } from "./components/Content/SelectedPage";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import {
+  swapiResourceMetadata,
+  SwapiResources,
+} from "../src/utils/swapiHelpers";
 
 const router = createBrowserRouter([
   {
@@ -14,28 +18,64 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/movies/",
-        element: <Greeting displayText="Movies" />,
+        path: swapiResourceMetadata[SwapiResources.Films].internalUrlPath,
+        element: (
+          <Greeting
+            displayText={
+              swapiResourceMetadata[SwapiResources.Films].displayName
+            }
+          />
+        ),
       },
       {
-        path: "/planets/",
-        element: <Greeting displayText="Planets" />,
+        path: swapiResourceMetadata[SwapiResources.Planets].internalUrlPath,
+        element: (
+          <Greeting
+            displayText={
+              swapiResourceMetadata[SwapiResources.Planets].displayName
+            }
+          />
+        ),
       },
       {
-        path: "/ships/",
-        element: <Greeting displayText="Ships" />,
+        path: swapiResourceMetadata[SwapiResources.Spaceships].internalUrlPath,
+        element: (
+          <Greeting
+            displayText={
+              swapiResourceMetadata[SwapiResources.Spaceships].displayName
+            }
+          />
+        ),
       },
       {
-        path: "/species/",
-        element: <Greeting displayText="Species" />,
+        path: swapiResourceMetadata[SwapiResources.Species].internalUrlPath,
+        element: (
+          <Greeting
+            displayText={
+              swapiResourceMetadata[SwapiResources.Species].displayName
+            }
+          />
+        ),
       },
       {
-        path: "/vehicles/",
-        element: <Greeting displayText="Vehicles" />,
+        path: swapiResourceMetadata[SwapiResources.Vehicles].internalUrlPath,
+        element: (
+          <Greeting
+            displayText={
+              swapiResourceMetadata[SwapiResources.Vehicles].displayName
+            }
+          />
+        ),
       },
       {
-        path: "/characters/",
-        element: <Greeting displayText="Characters" />,
+        path: swapiResourceMetadata[SwapiResources.People].internalUrlPath,
+        element: (
+          <Greeting
+            displayText={
+              swapiResourceMetadata[SwapiResources.People].displayName
+            }
+          />
+        ),
       },
     ],
   },
