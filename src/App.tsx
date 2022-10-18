@@ -5,6 +5,12 @@ import {
   swapiResourceMetadata,
   SwapiResources,
 } from "../src/utils/swapiHelpers";
+import { PeoplePage } from "./pages/PeoplePage";
+import { FilmsPage } from "./pages/FilmsPage";
+import { ShipsPage } from "./pages/ShipsPage";
+import { PlanetsPage } from "./pages/PlanetsPage";
+import { SpeciesPage } from "./pages/SpeciesPage";
+import { VehiclesPage } from "./pages/VehiclesPage";
 
 const router = createBrowserRouter([
   {
@@ -13,69 +19,31 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: (
-          <Greeting displayText="Welcome, please select a resource to continue!" />
-        ),
+        element: <Greeting />,
       },
       {
         path: swapiResourceMetadata[SwapiResources.Films].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.Films].displayName
-            }
-          />
-        ),
+        element: <FilmsPage />,
       },
       {
         path: swapiResourceMetadata[SwapiResources.Planets].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.Planets].displayName
-            }
-          />
-        ),
+        element: <PlanetsPage />,
       },
       {
         path: swapiResourceMetadata[SwapiResources.Spaceships].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.Spaceships].displayName
-            }
-          />
-        ),
+        element: <ShipsPage />,
       },
       {
         path: swapiResourceMetadata[SwapiResources.Species].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.Species].displayName
-            }
-          />
-        ),
+        element: <SpeciesPage />,
       },
       {
         path: swapiResourceMetadata[SwapiResources.Vehicles].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.Vehicles].displayName
-            }
-          />
-        ),
+        element: <VehiclesPage />,
       },
       {
         path: swapiResourceMetadata[SwapiResources.People].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.People].displayName
-            }
-          />
-        ),
+        element: <PeoplePage />,
       },
     ],
   },
