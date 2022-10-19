@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export enum SwapiResources {
   People = "People",
   Films = "Films",
@@ -51,3 +53,20 @@ export const swapiResourceMetadata: {
     internalUrlPath: "/planets",
   },
 };
+
+export async function fetchResource(
+  resource: SwapiResources,
+  signal: AbortSignal,
+  updateData: Dispatch<SetStateAction<unknown[]>>,
+  updateLoading: Dispatch<SetStateAction<boolean>>
+) {
+  const response = await fetch(
+    `${SWAPI_BASE_URL}${swapiResourceUrls[resource]}`,
+    {
+      signal: signal,
+    }
+  );
+  const data = await response.json();
+  updateData(data.results);
+  updateLoading(false);
+}
