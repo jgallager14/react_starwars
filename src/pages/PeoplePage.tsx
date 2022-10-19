@@ -18,7 +18,7 @@ export function PeoplePage(): JSX.Element {
     return () => {
       abortController.abort();
     };
-  }, [showMore]);
+  }, []);
 
   if (isLoading) {
     return <span>Loading...</span>;
