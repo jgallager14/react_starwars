@@ -29,7 +29,7 @@ export function PeoplePage(): JSX.Element {
       <h2 className="text-3xl text-center">People</h2>
       <div className="grid grid-cols-4 gap-10">
         {fetchResults.map((result) => {
-          return <PersonCard person={result}></PersonCard>;
+          return <PersonCard person={result} />;
         })}
       </div>
     </div>
