@@ -54,10 +54,10 @@ export const swapiResourceMetadata: {
   },
 };
 
-export async function fetchResource(
+export async function fetchResource<TypeParam>(
   resource: SwapiResources,
   signal: AbortSignal,
-  updateData: Dispatch<SetStateAction<unknown[]>>,
+  updateData: Dispatch<SetStateAction<TypeParam[]>>,
   updateLoading: Dispatch<SetStateAction<boolean>>
 ) {
   const response = await fetch(
@@ -69,4 +69,23 @@ export async function fetchResource(
   const data = await response.json();
   updateData(data.results);
   updateLoading(false);
+}
+
+export interface Person {
+  birth_year: string;
+  eye_color: string;
+  films: string[];
+  gender: string;
+  hair_color: string;
+  height: string;
+  homeworld: string;
+  mass: string;
+  name: string;
+  skin_color: string;
+  created: string;
+  edited: string;
+  species: string[];
+  starships: string[];
+  url: string;
+  vehicles: string[];
 }
