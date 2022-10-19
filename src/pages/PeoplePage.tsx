@@ -29,16 +29,7 @@ export function PeoplePage(): JSX.Element {
       <h2 className="text-3xl text-center">People</h2>
       <div className="grid grid-cols-4 gap-10">
         {fetchResults.map((result) => {
-          return (
-            <PersonCard
-              name={result.name}
-              height={result.height}
-              weight={result.mass}
-              hair={result.hair_color}
-              gender={result.gender}
-              born_in={result.birth_year}
-            ></PersonCard>
-          );
+          return <PersonCard person={result}></PersonCard>;
         })}
       </div>
     </div>
