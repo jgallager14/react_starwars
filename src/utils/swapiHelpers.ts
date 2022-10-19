@@ -53,24 +53,12 @@ export const swapiResourceMetadata: {
     internalUrlPath: "/planets",
   },
 };
-
-export async function fetchResource<TypeParam>(
-  resource: SwapiResources,
-  signal: AbortSignal,
-  updateData: Dispatch<SetStateAction<TypeParam[]>>,
-  updateLoading: Dispatch<SetStateAction<boolean>>
-) {
-  const response = await fetch(
-    `${SWAPI_BASE_URL}${swapiResourceUrls[resource]}`,
-    {
-      signal: signal,
-    }
-  );
-  const data = await response.json();
-  updateData(data.results);
-  updateLoading(false);
+export interface SwapiBaseRouteResponse<T> {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: T[];
 }
-
 export interface Person {
   birth_year: string;
   eye_color: string;

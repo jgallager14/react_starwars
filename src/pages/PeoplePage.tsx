@@ -1,26 +1,20 @@
 import { useEffect, useState } from "react";
 import { ShowHideCard } from "../components/ShowHideCard";
-import { SwapiResources, fetchResource, Person } from "../utils/swapiHelpers";
+import { useFetchOnMount } from "../hooks/useFetchOnMount";
+import {
+  Person,
+  SwapiBaseRouteResponse,
+  SwapiResources,
+  swapiResourceUrls,
+  SWAPI_BASE_URL,
+} from "../utils/swapiHelpers";
 
 export function PeoplePage(): JSX.Element {
-  const [isLoading, updateIsLoading] = useState<boolean>(true);
-  const [fetchResults, updateFetchResults] = useState<Person[]>([]);
+  const { data } = useFetchOnMount<SwapiBaseRouteResponse<Person>>(
+    `${SWAPI_BASE_URL}${swapiResourceUrls[SwapiResources.People]}`
+  );
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    fetchResource(
-      SwapiResources.People,
-      abortController.signal,
-      updateFetchResults,
-      updateIsLoading
-    );
-
-    return () => {
-      abortController.abort();
-    };
-  }, []);
-
-  if (isLoading) {
+  if (!data) {
     return <span>Loading...</span>;
   }
 
@@ -28,7 +22,7 @@ export function PeoplePage(): JSX.Element {
     <div className="m-10">
       <h2 className="text-3xl text-center">People</h2>
       <div className="grid grid-cols-4 gap-10">
-        {fetchResults.map(
+        {data.results.map(
           ({
             name,
             height,
