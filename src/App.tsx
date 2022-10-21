@@ -6,6 +6,9 @@ import {
 } from "../src/utils/swapiHelpers";
 import { PeoplePage } from "./pages/PeoplePage";
 import { ErrorPage } from "./pages/ErrorPage";
+import { MoviesPage } from "./pages/moviesPage";
+import { PlanetsPage } from "./pages/PlanetsPage";
+import { ShipsPage } from "./pages/ShipsPage";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,18 @@ const router = createBrowserRouter([
       {
         path: swapiResourceMetadata[SwapiResources.People].internalUrlPath,
         element: <PeoplePage />,
+      },
+      {
+        path: swapiResourceMetadata[SwapiResources.Films].internalUrlPath,
+        element: <MoviesPage />,
+      },
+      {
+        path: swapiResourceMetadata[SwapiResources.Planets].internalUrlPath,
+        element: <PlanetsPage />,
+      },
+      {
+        path: swapiResourceMetadata[SwapiResources.Spaceships].internalUrlPath,
+        element: <ShipsPage />,
       },
       {
         path: "*",
