@@ -6,7 +6,7 @@ import {
 } from "../src/utils/swapiHelpers";
 import { PeoplePage } from "./pages/PeoplePage";
 import { ErrorPage } from "./pages/ErrorPage";
-import { MoviesPage } from "./pages/moviesPage";
+import { MoviesPage } from "./pages/MoviesPage";
 import { PlanetsPage } from "./pages/PlanetsPage";
 import { ShipsPage } from "./pages/ShipsPage";
 import { VehiclesPage } from "./pages/VehiclesPage";
