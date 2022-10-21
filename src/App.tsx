@@ -10,6 +10,7 @@ import { MoviesPage } from "./pages/moviesPage";
 import { PlanetsPage } from "./pages/PlanetsPage";
 import { ShipsPage } from "./pages/ShipsPage";
 import { VehiclesPage } from "./pages/VehiclesPage";
+import { SpeciesPage } from "./pages/SpeciesPage";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: swapiResourceMetadata[SwapiResources.Vehicles].internalUrlPath,
         element: <VehiclesPage />,
+      },
+      {
+        path: swapiResourceMetadata[SwapiResources.Species].internalUrlPath,
+        element: <SpeciesPage />,
       },
       {
         path: "*",
