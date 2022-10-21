@@ -7,7 +7,9 @@ export function useFetchOnMount<T>(apiEndpoint: string) {
     const abortController = new AbortController();
 
     async function fetchData() {
-      const response = await fetch(apiEndpoint, {signal: abortController.signal});
+      const response = await fetch(apiEndpoint, {
+        signal: abortController.signal,
+      });
       const data = await response.json();
       updateData(data);
     }
@@ -16,8 +18,8 @@ export function useFetchOnMount<T>(apiEndpoint: string) {
 
     return () => {
       abortController.abort();
-    }
-  })
+    };
+  }, []);
 
   return { data };
 }
