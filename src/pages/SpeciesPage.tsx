@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { ShowHideCard } from "../components/ShowHideCard";
 import { useFetchOnMount } from "../hooks/useFetchOnMount";
 import {
