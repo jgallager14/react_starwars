@@ -1,81 +1,54 @@
 import { IndexPage } from "./pages/IndexPage";
-import { Greeting } from "./components/Content/SelectedPage";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {
   swapiResourceMetadata,
   SwapiResources,
 } from "../src/utils/swapiHelpers";
+import { PeoplePage } from "./pages/PeoplePage";
+import { ErrorPage } from "./pages/ErrorPage";
+import { MoviesPage } from "./pages/MoviesPage";
+import { PlanetsPage } from "./pages/PlanetsPage";
+import { ShipsPage } from "./pages/ShipsPage";
+import { VehiclesPage } from "./pages/VehiclesPage";
+import { SpeciesPage } from "./pages/SpeciesPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <IndexPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
-        element: (
-          <Greeting displayText="Welcome, please select a resource to continue!" />
-        ),
-      },
-      {
-        path: swapiResourceMetadata[SwapiResources.Films].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.Films].displayName
-            }
-          />
-        ),
-      },
-      {
-        path: swapiResourceMetadata[SwapiResources.Planets].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.Planets].displayName
-            }
-          />
-        ),
-      },
-      {
-        path: swapiResourceMetadata[SwapiResources.Spaceships].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.Spaceships].displayName
-            }
-          />
-        ),
-      },
-      {
-        path: swapiResourceMetadata[SwapiResources.Species].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.Species].displayName
-            }
-          />
-        ),
-      },
-      {
-        path: swapiResourceMetadata[SwapiResources.Vehicles].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.Vehicles].displayName
-            }
-          />
-        ),
+        element: <p>Welcome, please select a resource to get started!</p>,
       },
       {
         path: swapiResourceMetadata[SwapiResources.People].internalUrlPath,
-        element: (
-          <Greeting
-            displayText={
-              swapiResourceMetadata[SwapiResources.People].displayName
-            }
-          />
-        ),
+        element: <PeoplePage />,
+      },
+      {
+        path: swapiResourceMetadata[SwapiResources.Films].internalUrlPath,
+        element: <MoviesPage />,
+      },
+      {
+        path: swapiResourceMetadata[SwapiResources.Planets].internalUrlPath,
+        element: <PlanetsPage />,
+      },
+      {
+        path: swapiResourceMetadata[SwapiResources.Spaceships].internalUrlPath,
+        element: <ShipsPage />,
+      },
+      {
+        path: swapiResourceMetadata[SwapiResources.Vehicles].internalUrlPath,
+        element: <VehiclesPage />,
+      },
+      {
+        path: swapiResourceMetadata[SwapiResources.Species].internalUrlPath,
+        element: <SpeciesPage />,
+      },
+      {
+        path: "*",
+        element: <h1>Page not implemented</h1>,
       },
     ],
   },
