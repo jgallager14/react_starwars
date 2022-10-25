@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ShowHideCard } from "../components/ShowHideCard";
 import { useFetchOnMount } from "../hooks/useFetchOnMount";
 import {
@@ -9,7 +10,10 @@ import {
 } from "../utils/swapiHelpers";
 
 export function PeoplePage(): JSX.Element {
-  const { data } = useFetchOnMount<SwapiBaseRouteResponse<Person>>(
+  const [itemsShown, updateItemsShown] = useState(10);
+  let currentItemsShown = itemsShown;
+
+  const { data } = useFetchOnMount<Person>(
     `${SWAPI_BASE_URL}${swapiResourceUrls[SwapiResources.People]}`
   );
 
@@ -17,11 +21,17 @@ export function PeoplePage(): JSX.Element {
     return <span>Loading...</span>;
   }
 
+  let shownItemsArray: Person[] = [];
+
+  for (let i = shownItemsArray.length; i < itemsShown; i++) {
+    shownItemsArray.push(data[i]);
+  }
+
   return (
     <div className="m-10">
-      <h2 className="text-3xl text-center">People</h2>
+      <h2 className="text-3xl text-center">Characters</h2>
       <div className="grid grid-cols-4 gap-10">
-        {data.results.map(
+        {shownItemsArray.map(
           ({
             name,
             height,
@@ -43,6 +53,28 @@ export function PeoplePage(): JSX.Element {
             );
           }
         )}
+        <button
+          onClick={() => {
+            if (currentItemsShown > 10) {
+              updateItemsShown(currentItemsShown - 10);
+            }
+          }}
+        >
+          Show Less
+        </button>
+        <button
+          onClick={() => {
+            if (currentItemsShown < 80) {
+              updateItemsShown(currentItemsShown + 10);
+            } else if (currentItemsShown === 80) {
+              updateItemsShown((currentItemsShown += 2));
+            } else {
+              console.log("that's it!");
+            }
+          }}
+        >
+          Show More
+        </button>
       </div>
     </div>
   );
