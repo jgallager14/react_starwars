@@ -10,22 +10,27 @@ import {
 } from "../utils/swapiHelpers";
 
 export function PeoplePage(): JSX.Element {
-  const [itemsShown, updateItemsShown] = useState(10);
-  let currentItemsShown = itemsShown;
+  const [currentData, updateCurrentData] =
+    useState<SwapiBaseRouteResponse<Person>>();
+  const [isLoading, updateIsLoading] = useState<boolean>(false);
 
-  const { data } = useFetchOnMount<SwapiBaseRouteResponse<Person>>(
-    `${SWAPI_BASE_URL}${swapiResourceUrls[SwapiResources.People]}`
-  );
+  const { data, isLoading: isLoadingOnMount } = useFetchOnMount<
+    SwapiBaseRouteResponse<Person>
+  >(`${SWAPI_BASE_URL}${swapiResourceUrls[SwapiResources.People]}`);
 
-  if (!data) {
+  if (isLoadingOnMount) {
     return <span>Loading...</span>;
+  }
+
+  if (!currentData) {
+    updateCurrentData(data);
   }
 
   return (
     <div className="m-10">
-      <h2 className="text-3xl text-center">Characters</h2>
-      <div className="grid grid-cols-4 gap-10">
-        {data.results.map(
+      <h2 className="text-3xl text-center font-bold">Characters</h2>
+      <div className="grid grid-cols-4 gap-10 m-10">
+        {currentData?.results.map(
           ({
             name,
             height,
@@ -48,28 +53,46 @@ export function PeoplePage(): JSX.Element {
           }
         )}
       </div>
-      <button
-        onClick={() => {
-          if (currentItemsShown > 10) {
-            updateItemsShown(currentItemsShown - 10);
-          }
-        }}
-      >
-        Show Less
-      </button>
-      <button
-        onClick={() => {
-          if (currentItemsShown < 80) {
-            updateItemsShown(currentItemsShown + 10);
-          } else if (currentItemsShown === 80) {
-            updateItemsShown((currentItemsShown += 2));
-          } else {
-            console.log("that's it!");
-          }
-        }}
-      >
-        Show More
-      </button>
+      <div className="flex justify-center">
+        {isLoading ? (
+          <span>Loading...</span>
+        ) : (
+          <>
+            {currentData?.previous && (
+              <button
+                className="m-6 text-blue-600 text-sm"
+                onClick={async () => {
+                  if (currentData?.previous) {
+                    updateIsLoading(true);
+                    const response = await fetch(currentData.previous);
+                    const data = await response.json();
+                    updateCurrentData(data);
+                    updateIsLoading(false);
+                  }
+                }}
+              >
+                Previous Page
+              </button>
+            )}
+            {currentData?.next && (
+              <button
+                className="m-6 text-blue-600 text-sm"
+                onClick={async () => {
+                  if (currentData?.next) {
+                    updateIsLoading(true);
+                    const response = await fetch(currentData.next);
+                    const data = await response.json();
+                    updateCurrentData(data);
+                    updateIsLoading(false);
+                  }
+                }}
+              >
+                Next Page
+              </button>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 }
