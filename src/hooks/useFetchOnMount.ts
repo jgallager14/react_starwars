@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export function useFetchOnMount<T>(apiEndpoint: string) {
   const [data, updateData] = useState<T>();
+  const [isLoading, updateIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -12,6 +13,7 @@ export function useFetchOnMount<T>(apiEndpoint: string) {
       });
       const data = await response.json();
       updateData(data);
+      updateIsLoading(false);
     }
 
     fetchData();
@@ -21,5 +23,5 @@ export function useFetchOnMount<T>(apiEndpoint: string) {
     };
   }, []);
 
-  return { data };
+  return { data, isLoading };
 }
