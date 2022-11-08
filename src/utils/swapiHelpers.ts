@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 export enum SwapiResources {
   People = "People",
   Films = "Films",
