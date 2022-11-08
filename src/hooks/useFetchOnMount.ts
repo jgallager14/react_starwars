@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export function useFetchOnMount<T>(apiEndpoint: string) {
-  const [data, updateData] = useState<T>();
-  const [isLoading, updateIsLoading] = useState<boolean>(true);
+interface UseFetchOnMountOptions<T> {
+  apiEndpoint: string;
+  postFetchCallback?: (data: T) => void;
+}
 
+export function useFetchOnMount<T>({
+  apiEndpoint,
+  postFetchCallback,
+}: UseFetchOnMountOptions<T>) {
   useEffect(() => {
     const abortController = new AbortController();
 
@@ -12,8 +17,9 @@ export function useFetchOnMount<T>(apiEndpoint: string) {
         signal: abortController.signal,
       });
       const data = await response.json();
-      updateData(data);
-      updateIsLoading(false);
+      if (postFetchCallback) {
+        postFetchCallback(data);
+      }
     }
 
     fetchData();
@@ -22,6 +28,4 @@ export function useFetchOnMount<T>(apiEndpoint: string) {
       abortController.abort();
     };
   }, []);
-
-  return { data, isLoading };
 }
