@@ -5,6 +5,7 @@ import { PageLayout } from "../components/PageLayout";
 import {
   Person,
   SwapiBaseRouteResponse,
+  swapiResourceMetadata,
   SwapiResources,
   swapiResourceUrls,
   SWAPI_BASE_URL,
@@ -20,17 +21,32 @@ export function PeoplePage(): JSX.Element {
     postFetchCallback: updateCurrentData,
   });
 
+  async function handlePaginationClick(url: string | null) {
+    updateIsLoading(true);
+    if (url) {
+      const response = await fetch(url);
+      const data = await response.json();
+      updateCurrentData(data);
+    }
+    updateIsLoading(false);
+  }
+
   if (!currentData) {
     return <span>Loading...</span>;
   }
 
   return (
-    <PageLayout<Person>
-      title="Characters"
-      data={currentData}
-      isLoading={isLoading}
-      updateData={updateCurrentData}
-      updateIsLoading={updateIsLoading}
+    <PageLayout
+      title={swapiResourceMetadata[SwapiResources.People].displayName}
+      areButtonsEnabled={!isLoading}
+      onPrevClick={() => {
+        handlePaginationClick(currentData.previous);
+      }}
+      onNextClick={() => {
+        handlePaginationClick(currentData.next);
+      }}
+      showNextButton={!!currentData.next}
+      showPreviousButton={!!currentData.previous}
     >
       <>
         {currentData?.results.map(
