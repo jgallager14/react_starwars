@@ -1,61 +1,44 @@
-import React, { PropsWithChildren } from "react";
-import { SwapiBaseRouteResponse } from "../utils/swapiHelpers";
+import React, { MouseEventHandler, PropsWithChildren } from "react";
 
-interface LayoutPageProps<T> extends PropsWithChildren {
+interface LayoutPageProps extends PropsWithChildren {
   title: string;
-  isLoading: boolean;
-  data: SwapiBaseRouteResponse<T>;
-  updateData: React.Dispatch<
-    React.SetStateAction<SwapiBaseRouteResponse<T> | undefined>
-  >;
-  updateIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  areButtonsEnabled: boolean;
+  onPrevClick: MouseEventHandler;
+  onNextClick: MouseEventHandler;
+  showNextButton: boolean;
+  showPreviousButton: boolean;
 }
 
-export function PageLayout<T>({
+export function PageLayout({
   title,
-  isLoading,
-  data,
-  updateData,
-  updateIsLoading,
+  areButtonsEnabled,
+  onPrevClick,
+  onNextClick,
+  showNextButton,
+  showPreviousButton,
   children,
-}: LayoutPageProps<T>): JSX.Element {
+}: LayoutPageProps): JSX.Element {
   return (
     <div className="m-10">
       <h2 className="text-3xl text-center font-bold">{title}</h2>
       <div className="grid grid-cols-4 gap-10 m-10">{children}</div>
       <div className="flex justify-center">
-        {isLoading ? (
+        {!areButtonsEnabled ? (
           <span>Loading...</span>
         ) : (
           <>
-            {data?.previous && (
+            {showPreviousButton && (
               <button
                 className="m-6 text-blue-600 text-sm"
-                onClick={async () => {
-                  if (data?.previous) {
-                    updateIsLoading(true);
-                    const response = await fetch(data.previous);
-                    const newData = await response.json();
-                    updateData(newData);
-                    updateIsLoading(false);
-                  }
-                }}
+                onClick={onPrevClick}
               >
                 Previous Page
               </button>
             )}
-            {data?.next && (
+            {showNextButton && (
               <button
                 className="m-6 text-blue-600 text-sm"
-                onClick={async () => {
-                  if (data?.next) {
-                    updateIsLoading(true);
-                    const response = await fetch(data.next);
-                    const newData = await response.json();
-                    updateData(newData);
-                    updateIsLoading(false);
-                  }
-                }}
+                onClick={onNextClick}
               >
                 Next Page
               </button>
