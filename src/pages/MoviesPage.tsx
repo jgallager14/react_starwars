@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { PageLayout } from "../components/PageLayout";
 import { ShowHideCard } from "../components/ShowHideCard";
 import { useFetchOnMount } from "../hooks/useFetchOnMount";
 import {
@@ -9,33 +11,41 @@ import {
 } from "../utils/swapiHelpers";
 
 export function MoviesPage(): JSX.Element {
-  const { data } = useFetchOnMount<SwapiBaseRouteResponse<Film>>(
-    `${SWAPI_BASE_URL}${swapiResourceUrls[SwapiResources.Films]}`
-  );
+  const [currentData, updateCurrentData] =
+    useState<SwapiBaseRouteResponse<Film>>();
+  const [isLoading, updateIsLoading] = useState<boolean>(false);
 
-  if (!data) {
+  useFetchOnMount<SwapiBaseRouteResponse<Film>>({
+    apiEndpoint: `${SWAPI_BASE_URL}${swapiResourceUrls[SwapiResources.Films]}`,
+    postFetchCallback: updateCurrentData,
+  });
+
+  if (!currentData) {
     return <span>Loading...</span>;
   }
 
   return (
-    <div className="m-10">
-      <h2 className="text-3xl text-center">Movies</h2>
-      <div className="grid grid-cols-4 gap-10">
-        {data.results.map(
-          ({ title, episode_id, release_date, director, producer }) => {
-            return (
-              <ShowHideCard key={title} headerName={title}>
-                <ul>
-                  <li>Episode {episode_id}</li>
-                  <li>Directed by {director}</li>
-                  <li>Produced by {producer}</li>
-                  <li>Released on {release_date}</li>
-                </ul>
-              </ShowHideCard>
-            );
-          }
-        )}
-      </div>
-    </div>
+    <PageLayout<Film>
+      title="Movies"
+      isLoading={isLoading}
+      data={currentData}
+      updateData={updateCurrentData}
+      updateIsLoading={updateIsLoading}
+    >
+      {currentData.results.map(
+        ({ title, episode_id, release_date, director, producer }) => {
+          return (
+            <ShowHideCard key={title} headerName={title}>
+              <ul>
+                <li>Episode {episode_id}</li>
+                <li>Directed by {director}</li>
+                <li>Produced by {producer}</li>
+                <li>Released on {release_date}</li>
+              </ul>
+            </ShowHideCard>
+          );
+        }
+      )}
+    </PageLayout>
   );
 }
